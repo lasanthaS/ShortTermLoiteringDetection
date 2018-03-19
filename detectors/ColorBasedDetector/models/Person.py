@@ -1,118 +1,57 @@
-from random import randint
+from detectors.ColorBasedDetector.utils.Utils import  Utils
 
 
 class Person:
+
     tracks = []
 
-    def __init__(self, i, xi, yi, max_age):
-        self.i = i
-        self.x = xi
-        self.y = yi
+    def __init__(self, cx, cy, maxAge=5):
+        self.id = Utils.nextPersonId()
+        self.color = Utils.generateColor(self.id)
+        self.cx = cx
+        self.cy = cy
         self.tracks = []
-        self.R = randint(0, 255)
-        self.G = randint(0, 255)
-        self.B = randint(0, 255)
         self.done = False
         self.state = '0'
         self.age = 0
-        self.max_age = max_age
+        self.maxAge = maxAge
         self.dir = None
-        self.sx = None
-        self.sy = None
+        self.x = None
+        self.y = None
         self.w = None
         self.h = None
-        self.average1 = None
-        self.average2 = None
-        self.average3 = None
+        self.avg = [None, None, None]
 
-    def getRGB(self):
-        return self.R, self.G, self.B
+    def getId(self):
+        return self.id
+
+    def getColor(self):
+        return self.color
 
     def getTracks(self):
         return self.tracks
 
-    def getId(self):
-        return self.i
-
-    # def getState(self):
-    #     return self.state
-
-    # def getDir(self):
-    #     return self.dir
-
     def getX(self):
-        return self.x
+        return self.cx
 
     def getY(self):
-        return self.y
+        return self.cy
 
-    def updateCoords(self, xn, yn):
+    def getAverages(self):
+        return self.avg
+
+    def setAverages(self, avg):
+        self.avg = avg
+
+    def updateCoords(self, cx, cy):
         self.age = 0
-        self.tracks.append([self.x, self.y])
-        self.x = xn
-        self.y = yn
+        self.tracks.append([self.cx, self.cy])
+        self.cx = cx
+        self.cy = cy
 
-    # def setDone(self):
-    #     self.done = True
-
-    # def timedOut(self):
-    #     return self.done
-
-    # def going_UP(self, mid_start, mid_end):
-    #     if len(self.tracks) >= 2:
-    #         if self.state == '0':
-    #             if self.tracks[-1][1] < mid_end and self.tracks[-2][1] >= mid_end:  # cruzo la linea
-    #                 state = '1'
-    #                 self.dir = 'up'
-    #                 return True
-    #         else:
-    #             return False
-    #     else:
-    #         return False
-    #
-    # def going_DOWN(self, mid_start, mid_end):
-    #     if len(self.tracks) >= 2:
-    #         if self.state == '0':
-    #             if self.tracks[-1][1] > mid_start and self.tracks[-2][1] <= mid_start:  # cruzo la linea
-    #                 state = '1'
-    #                 self.dir = 'down'
-    #                 return True
-    #         else:
-    #             return False
-    #     else:
-    #         return False
-
-    # def age_one(self):
-    #     self.age += 1
-    #     if self.age > self.max_age:
-    #         self.done = True
-    #     return True
-
-    def setDim(self, sx, sy, w, h):
-        self.sx = sx
-        self.sy = sy
+    def setDimension(self, x, y, w, h):
+        self.x = x
+        self.y = y
         self.w = w
         self.h = h
 
-    # def getDim(self):
-    #     return self.sx, self.sy, self.w, self.h
-
-    def setAverages(self, a1, a2, a3):
-        self.average1 = a1
-        self.average2 = a2
-        self.average3 = a3
-
-    def getAverages(self):
-        return self.average1, self.average2, self.average3
-
-
-# class MultiPerson:
-#     def __init__(self, persons, xi, yi):
-#         self.persons = persons
-#         self.x = xi
-#         self.y = yi
-#         self.tracks = []
-#         self.R = randint(0, 255)
-#         self.G = randint(0, 255)
-#         self.B = randint(0, 255)
-#         self.done = False

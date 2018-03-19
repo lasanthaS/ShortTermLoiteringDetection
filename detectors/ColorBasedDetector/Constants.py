@@ -4,7 +4,7 @@ class Constants:
     HUMAN_AREA_THRESHOLD = 400
 
     # Color average comparison threshold
-    COLOR_AVERAGE_THRESHOLD = 5
+    COLOR_AVERAGE_THRESHOLD = 50
 
 
 # Commonly used colors

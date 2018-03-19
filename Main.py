@@ -8,4 +8,3 @@ _colorBasedDetector = ColorBasedDetector(enablePeopleTracking=True)
 
 # Start the processor with detector instance
 Processor(_colorBasedDetector, verbose=False)
-
