@@ -6,25 +6,31 @@ from utils.Constants import ProcessorConstants as Constants
 
 class Processor:
 
-    def __init__(self, detector, verbose=False):
-        print("Initializing the processor with detector: ", detector.getName())
+    def __init__(self, detector, progress=False):
+        print("Initializing the processor with {0} detector".format(detector.getName()))
 
-        self.verbose = verbose
+        self.progress = progress
         self.process(detector)
 
     def process(self, detector):
-        print("Starting processing...")
+        print("Start processing...")
 
+        # Iterate all the files in the directory and pass them to the detector.
         for i in range(0, Constants.NUMBER_OF_FRAMES):
-            if self.verbose:
-                Processor.notifyProgress("Processing image: " + str(i + 1))
+            # If progress notifications are enabled, show the progress.
+            if self.progress:
+                Processor.showProgress("Processing image: {0}".format(i + 1))
+
+            # Build file path and pass it to the detector.
             path = Constants.FILE_PATH_TEMPLATE.replace('{NUMBER}', '%06d' % i)
-            detector.process(path)
+            detector.process(path, i)
+
             cv2.waitKey(33)
 
         cv2.destroyAllWindows()
+        print("Completed processing!")
 
     @staticmethod
-    def notifyProgress(message):
+    def showProgress(message):
         sys.stdout.write("\r" + message)
         sys.stdout.flush()
