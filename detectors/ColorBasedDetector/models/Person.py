@@ -1,51 +1,19 @@
-from detectors.ColorBasedDetector.utils.Utils import  Utils
-
-
 class Person:
-
-    tracks = []
-
-    def __init__(self, cx, cy, maxAge=5):
-        self.id = Utils.nextPersonId()
-        self.color = Utils.generateColor(self.id)
-        self.cx = cx
-        self.cy = cy
+    def __init__(self, id):
         self.tracks = []
-        self.done = False
-        self.state = '0'
-        self.age = 0
-        self.maxAge = maxAge
-        self.dir = None
-        self.x = None
-        self.y = None
-        self.w = None
-        self.h = None
-        self.avg = [None, None, None]
-
-    def getId(self):
-        return self.id
-
-    def getColor(self):
-        return self.color
-
-    def getTracks(self):
-        return self.tracks
-
-    def getX(self):
-        return self.cx
-
-    def getY(self):
-        return self.cy
-
-    def getAverages(self):
-        return self.avg
-
-    def setAverages(self, avg):
-        self.avg = avg
+        self.id = id
+        self.cx = None
+        self.cy = None
+        self.x = 0
+        self.y = 0
+        self.w = 0
+        self.h = 0
+        self.color = []
+        self.lastSeenOn = -1
 
     def updateCoords(self, cx, cy):
-        self.age = 0
-        self.tracks.append([self.cx, self.cy])
+        if self.cx is not None and self.cy is not None:
+            self.tracks.append([cx, cy])
         self.cx = cx
         self.cy = cy
 
@@ -55,3 +23,26 @@ class Person:
         self.w = w
         self.h = h
 
+    def getX(self):
+        return self.cx
+
+    def getY(self):
+        return self.cy
+
+    def getTracks(self):
+        return self.tracks
+
+    def getColor(self):
+        return self.color
+
+    def updateColor(self, color):
+        self.color = color
+
+    def getId(self):
+        return self.id
+
+    def updateLastSeenOn(self, frameId):
+        self.lastSeenOn = frameId
+
+    def getLastSeenOn(self):
+        return self.lastSeenOn

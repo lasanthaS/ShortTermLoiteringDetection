@@ -1,7 +1,7 @@
 # Constants specific to color based detector
 class Constants:
     # Area of the contour to detect as human
-    HUMAN_AREA_THRESHOLD = 400
+    HUMAN_AREA_THRESHOLD = 500
 
     # Color average comparison threshold
     COLOR_AVERAGE_THRESHOLD = 50
